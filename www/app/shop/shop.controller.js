@@ -421,6 +421,15 @@ angular
 angular
   .module('shop.module')
   .controller('ShopSearchCtrl', function ($scope, $localStorage, $rootScope, $ionicScrollDelegate, $stateParams, ShopService) {
+
+    // alert('From Shika: '+ Object.keys($localStorage.user.lastname.toString()));
+    // console.log('From Shika: '+ Object.keys($localStorage.user));
+
+    var str = JSON.stringify($localStorage.user);
+    str = JSON.stringify($localStorage.user, null, 4); // (Optional) beautiful indented output.
+    console.log(str); // Logs output to dev tools console.
+    alert(str); // Displays output using window.alert()
+
     var vm = this;
     $scope.endOfRLatestItems = false;
     $scope.loadingLatest = false;

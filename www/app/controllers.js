@@ -315,63 +315,63 @@ angular.module('starter')
             });
         }
 
-        $scope.postRegisterData = function () {
+      $scope.postRegisterData = function () {
 
-            $scope.validations = {};
-            // sync user data to localstorage
-            $localStorage.user = $localStorage.user || {};
+        $scope.validations = {};
+        // sync user data to localstorage
+        $localStorage.user = $localStorage.user || {};
 
-            // mobile group
-            $scope.register.agree = true;
+        // mobile group
+        $scope.register.agree = true;
 
-            if ($scope.forms.registerForm.$invalid) {
-                $ionicPopup.alert({
-                    title: locale.getString('modals.registration_validations_title'),
-                    cssClass: 'desc-popup',
-                    scope: $scope,
-                    templateUrl: 'templates/popups/registration-validations.html'
-                });
+        if ($scope.forms.registerForm.$invalid) {
+          $ionicPopup.alert({
+            title: locale.getString('modals.registration_validations_title'),
+            cssClass: 'desc-popup',
+            scope: $scope,
+            templateUrl: 'templates/popups/registration-validations.html'
+          });
+        } else {
+          $ionicLoading.show();
+
+          appService.Register($scope.register).then(function (data) {
+            $scope.validations.registrationErrors = [];
+            ["error_firstname", "error_lastname", "error_email", "error_password", "error_telephone", "error_warning", "error_confirm", "error_address_1", "error_city", "error_country", "error_postcode", "error_zone"].forEach(function (e) {
+              var msg = data[e];
+              if (msg) {
+                $scope.validations.registrationErrors.push(msg);
+              }
+            })
+
+            if ($scope.validations.registrationErrors.length > 0) {
+              $ionicPopup.alert({
+                title: locale.getString('modals.registration_validations_title'),
+                cssClass: 'desc-popup',
+                scope: $scope,
+                templateUrl: 'templates/popups/registration-validations.html'
+              });
             } else {
-                $ionicLoading.show();
+              if (data.customer_info) {
+                $localStorage.user = data.customer_info;
+                $rootScope.closeRegisterModal();
 
-                appService.Register($scope.register).then(function (data) {
-                    $scope.validations.registrationErrors = [];
-                    ["error_username", "error_realname", "error_email", "error_password", "error_telephone", "error_warning", "error_confirm", "error_address_1", "error_city", "error_country", "error_postcode", "error_zone"].forEach(function (e) {
-                        var msg = data[e];
-                        if (msg) {
-                            $scope.validations.registrationErrors.push(msg);
-                        }
-                    })
-
-                    if ($scope.validations.registrationErrors.length > 0) {
-                        $ionicPopup.alert({
-                            title: locale.getString('modals.registration_validations_title'),
-                            cssClass: 'desc-popup',
-                            scope: $scope,
-                            templateUrl: 'templates/popups/registration-validations.html'
-                        });
-                    } else {
-                        if (data.customer_info) {
-                            $localStorage.user = data.customer_info;
-                            $rootScope.closeRegisterModal();
-
-                            $ionicPopup.alert({
-                                title: locale.getString('modals.registered_title'),
-                                cssClass: 'desc-popup',
-                                scope: $scope,
-                                templateUrl: 'templates/popups/registered.html'
-                            });
-                        }
-
-                        $state.reload();
-                    }
-
-                    $ionicLoading.hide();
-                }, function (data) {
-                    $ionicLoading.hide();
+                $ionicPopup.alert({
+                  title: locale.getString('modals.registered_title'),
+                  cssClass: 'desc-popup',
+                  scope: $scope,
+                  templateUrl: 'templates/popups/registered.html'
                 });
+              }
+
+              $state.reload();
             }
+
+            $ionicLoading.hide();
+          }, function (data) {
+            $ionicLoading.hide();
+          });
         }
+      }
 
         $ionicModal.fromTemplateUrl('templates/register-modal.html', {
             scope: $scope,
