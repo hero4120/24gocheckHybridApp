@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "498316459171",
+    "firebase_url": "https://worldofheroes-d0d9b.firebaseio.com",
+    "project_id": "worldofheroes-d0d9b",
+    "storage_bucket": "worldofheroes-d0d9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498316459171:android:98b3c9a510a65b52",
+        "android_client_info": {
+          "package_name": "com.ionicframework.worldofheroes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498316459171-4bdgq4piqehloffn5bkdqvl7mdn0veoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs_BWe2E7ZdDI1GpVWv6xVZ6sF528elqQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
